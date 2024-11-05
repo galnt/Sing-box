@@ -50,6 +50,18 @@ read_hy2_port() {
     done
 }
 
+read_tuic_port() {
+    while true; do
+        reading "请输入Tuic端口 (面板开放的UDP端口): " tuic_port
+        if [[ "$tuic_port" =~ ^[0-9]+$ ]] && [ "$tuic_port" -ge 1 ] && [ "$tuic_port" -le 65535 ]; then
+            green "你的tuic端口为: $tuic_port"
+            break
+        else
+            yellow "输入错误，请重新输入面板开放的UDP端口"
+        fi
+    done
+}
+
 read_nz_variables() {
   if [ -n "$NEZHA_SERVER" ] && [ -n "$NEZHA_PORT" ] && [ -n "$NEZHA_KEY" ]; then
       green "使用自定义变量哪吒运行哪吒探针"
@@ -76,9 +88,10 @@ reading "\n确定继续安装吗？【y/n】: " choice
   case "$choice" in
     [Yy])
         cd $WORKDIR
-        read_nz_variables
+        # read_nz_variables
         read_vmess_port
         read_hy2_port
+        # read_tuic_port
         argo_configure
         generate_config
         download_singbox
