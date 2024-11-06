@@ -13,16 +13,15 @@ reading() { read -p "$(red "$1")" "$2"; }
 export LC_ALL=C
 USERNAME=$(whoami)
 HOSTNAME=$(hostname)
-export UUID=${UUID:-'bc97f674-c578-4940-9234-0a1da46041b9'}
+export UUID=${UUID:-'01995806-e014-444b-861b-2141276de154'}
 export NEZHA_SERVER=${NEZHA_SERVER:-''} 
 export NEZHA_PORT=${NEZHA_PORT:-'5555'}     
 export NEZHA_KEY=${NEZHA_KEY:-''} 
-export ARGO_DOMAIN=${ARGO_DOMAIN:-''}   
-export ARGO_AUTH=${ARGO_AUTH:-''}
-export VMESS_PORT=${VMESS_PORT:-'11226'}
-export TUIC_PORT=${TUIC_PORT:-'11227'}
-export HY2_PORT=${HY2_PORT:-'11228'}
-export CFIP=${CFIP:-'www.visa.com.tw'} 
+export ARGO_DOMAIN=${ARGO_DOMAIN:-'vmess.u2313.pics'}   
+export ARGO_AUTH=${ARGO_AUTH:-'eyJhIjoiZDhkNzFkYzM3NWEwYjI3NWM3ODA0Mzg2Zjg3OGI5ZjUiLCJ0IjoiYTFhNWZhZWItYmVmYS00Y2I1LTgxZWItOTg3NTBlYjgzM2E1IiwicyI6IlpXTTNObVJqWm1RdE1UazBZUzAwTVRBeUxUZzNZVFF0Tmpnd05qZzBNMlJqTkRZMSJ9'}
+export VMESS_PORT=${VMESS_PORT:-'49436'}
+export HY2_PORT=${HY2_PORT:-'36104'}
+export CFIP=${CFIP:-'icook.hk'} 
 export CFPORT=${CFPORT:-'443'} 
 
 [[ "$HOSTNAME" == "s1.ct8.pl" ]] && WORKDIR="domains/${USERNAME}.ct8.pl/logs" || WORKDIR="domains/${USERNAME}.serv00.net/logs"
@@ -139,29 +138,7 @@ generate_config() {
       "path": "/vmess",
       "early_data_header_name": "Sec-WebSocket-Protocol"
       }
-    },
-    {
-      "tag": "tuic-in",
-      "type": "tuic",
-      "listen": "$IP",
-      "listen_port": $TUIC_PORT,
-      "users": [
-        {
-          "uuid": "$UUID",
-          "password": "admin123"
-        }
-      ],
-      "congestion_control": "bbr",
-      "tls": {
-        "enabled": true,
-        "alpn": [
-          "h3"
-        ],
-        "certificate_path": "cert.pem",
-        "key_path": "private.key"
-      }
     }
-
  ],
     "outbounds": [
     {
@@ -415,7 +392,6 @@ vmess://$(echo "{ \"v\": \"2\", \"ps\": \"$NAME-vmss-argo\", \"add\": \"$CFIP\",
 
 hysteria2://$UUID@$IP:$HY2_PORT/?sni=www.bing.com&alpn=h3&insecure=1#$NAME-hy2
 
-tuic://$UUID:admin123@$IP:$TUIC_PORT?sni=www.bing.com&congestion_control=bbr&udp_relay_mode=native&alpn=h3&allow_insecure=1#$NAME-tuic
 EOF
 cat list.txt
 purple "\n$WORKDIR/list.txt saved successfully"
