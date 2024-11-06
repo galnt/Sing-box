@@ -21,7 +21,7 @@ export ARGO_DOMAIN=${ARGO_DOMAIN:-'vmess.u2313.pics'}
 export ARGO_AUTH=${ARGO_AUTH:-'eyJhIjoiZDhkNzFkYzM3NWEwYjI3NWM3ODA0Mzg2Zjg3OGI5ZjUiLCJ0IjoiYTFhNWZhZWItYmVmYS00Y2I1LTgxZWItOTg3NTBlYjgzM2E1IiwicyI6IlpXTTNObVJqWm1RdE1UazBZUzAwTVRBeUxUZzNZVFF0Tmpnd05qZzBNMlJqTkRZMSJ9'}
 export VMESS_PORT=${VMESS_PORT:-'49436'}
 export HY2_PORT=${HY2_PORT:-'36104'}
-export CFIP=${CFIP:-'icook.hk'} 
+export CFIP=${CFIP:-'2606:4700::'} 
 export CFPORT=${CFPORT:-'443'} 
 
 [[ "$HOSTNAME" == "s1.ct8.pl" ]] && WORKDIR="domains/${USERNAME}.ct8.pl/logs" || WORKDIR="domains/${USERNAME}.serv00.net/logs"
